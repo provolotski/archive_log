@@ -5,7 +5,7 @@ import os
 import sys
 import time
 from zipfile import ZipFile
-import cli
+import utl_generate_mask
 
 log_file = 'zipper.log'
 
@@ -74,4 +74,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    print(utl_generate_mask.genDate('asd%YM%'))
+
