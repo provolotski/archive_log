@@ -31,25 +31,6 @@ def json_load(file_name):
     return data
 
 
-def read_config():
-    file = ''
-    try:
-        opts, args = getopt.getopt(sys.argv[1:], "hi:o:", ["ifile=", ])
-    except getopt.GetoptError:
-        log("no parameter1")
-        sys.exit(2)
-    for opt, arg in opts:
-        if opt in ("-i", "--ifile"):
-            file = arg
-        if opt in ("-l", "--lfile"):
-            global log_file
-            log_file = arg
-    if len(file) < 5:
-        log("no parameter")
-        sys.exit(2)
-    return json_load(file)
-
-
 def remover(item):
     iterator = 0
     pick = time.time()
@@ -67,7 +48,8 @@ def remover(item):
 
 
 def main():
-    masks = read_config()
+    clf = cli.read_cli_flags(sys.argv[1:])
+    masks= json_load(clf['file'])
     remove_log()
     for item in masks:
         remover(masks[item])
