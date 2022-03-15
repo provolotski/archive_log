@@ -5,7 +5,7 @@ import os
 import sys
 import time
 from zipfile import ZipFile
-import utl_generate_mask
+import cli
 
 log_file = 'zipper.log'
 
@@ -31,29 +31,10 @@ def json_load(file_name):
     return data
 
 
-def read_config():
-    file = ''
-    try:
-        opts, args = getopt.getopt(sys.argv[1:], "hi:o:", ["ifile=", ])
-    except getopt.GetoptError:
-        log("no parameter1")
-        sys.exit(2)
-    for opt, arg in opts:
-        if opt in ("-i", "--ifile"):
-            file = arg
-        if opt in ("-l", "--lfile"):
-            global log_file
-            log_file = arg
-    if len(file) < 5:
-        log("no parameter")
-        sys.exit(2)
-    return json_load(file)
-
-
 def remover(item):
     iterator = 0
     pick = time.time()
-    with ZipFile('/u02/app/oracle/oradata/datastore/logs/odadb1_aud/log.zip','w') as zip:
+    with ZipFile('/u02/app/oracle/oradata/datastore/logs/odadb1_aud/log.zip', 'w') as zip:
         for file in glob.glob(item["file_mask"]):
             if os.stat(file).st_mtime < pick - item["delay_in_days"] * 86400:
                 zip.write(file)
@@ -67,12 +48,15 @@ def remover(item):
 
 
 def main():
-    masks = read_config()
+    clf = cli.read_cli_flags(sys.argv[1:])
+    masks = json_load(clf['file'])
     remove_log()
     for item in masks:
         remover(masks[item])
 
 
 if __name__ == "__main__":
-    print(utl_generate_mask.genDate('asd%YM%'))
+    cli.configlogger(filename='test.log', level='debug')
+    cli.log.debug('first_test')
+    cli.log.debug(utl_generate_mask.genDate('asd%YM%'))
 
