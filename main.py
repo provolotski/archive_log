@@ -1,4 +1,6 @@
-import getopt
+import cmn
+import utl_config
+import utl_generate_mask
 import glob
 import json
 import os
@@ -25,10 +27,7 @@ def log(message):
         f.write(strmsg)
 
 
-def json_load(file_name):
-    with open(file_name, "r") as read_file:
-        data = json.load(read_file)
-    return data
+
 
 
 def remover(item):
@@ -49,14 +48,17 @@ def remover(item):
 
 def main():
     clf = cli.read_cli_flags(sys.argv[1:])
-    masks = json_load(clf['file'])
-    remove_log()
-    for item in masks:
-        remover(masks[item])
+    # masks = json_load(clf['file'])
+    # remove_log()
+    # for item in masks:
+    #     remover(masks[item])
 
 
 if __name__ == "__main__":
-    cli.configlogger(filename='test.log', level='debug')
-    cli.log.debug('first_test')
-    cli.log.debug(utl_generate_mask.genDate('asd%YM%'))
+    cli.read_cli_flags(sys.argv[1:])
+    cli.configlogger(filename=cmn.args['logfile'], level='debug')
+    utl_config.read_config()
+    # cli.log.debug(utl_generate_mask.genDate('asd%YM%'))
+    utl_config.add_action('asd')
+    # utl_config.write_config()
 
