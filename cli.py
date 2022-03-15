@@ -4,6 +4,14 @@ import sys
 
 # Интерфейс для работы с командной строкой
 config_dict = []
+# логгер для приложения
+log = logging.getLogger('utilityApp')
+
+log_level = {
+    'debug': logging.DEBUG,
+    'info': logging.INFO,
+    'warning': logging.WARNING
+}
 
 # обрабатываемые флаги
 # -i --ifile - файл параметра
@@ -26,4 +34,15 @@ def read_cli_flags (args):
         logging.warning("no parameter")
         sys.exit(2)
     return config_dict
+
+def configlogger(level, filename):
+    fileh = logging.FileHandler(filename, 'a')
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    fileh.setFormatter(formatter)
+
+    for hdlr in log.handlers[:]:  # remove all old handlers
+        log.removeHandler(hdlr)
+    log.addHandler(fileh)  # set the new handler
+    if level == 'debug':
+        log.setLevel(logging.DEBUG)
 

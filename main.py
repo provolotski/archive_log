@@ -1,4 +1,3 @@
-import getopt
 import glob
 import json
 import os
@@ -8,6 +7,7 @@ from zipfile import ZipFile
 import cli
 
 log_file = 'zipper.log'
+
 
 
 def remove_log():
@@ -34,7 +34,7 @@ def json_load(file_name):
 def remover(item):
     iterator = 0
     pick = time.time()
-    with ZipFile('/u02/app/oracle/oradata/datastore/logs/odadb1_aud/log.zip','w') as zip:
+    with ZipFile('/u02/app/oracle/oradata/datastore/logs/odadb1_aud/log.zip', 'w') as zip:
         for file in glob.glob(item["file_mask"]):
             if os.stat(file).st_mtime < pick - item["delay_in_days"] * 86400:
                 zip.write(file)
@@ -49,11 +49,12 @@ def remover(item):
 
 def main():
     clf = cli.read_cli_flags(sys.argv[1:])
-    masks= json_load(clf['file'])
+    masks = json_load(clf['file'])
     remove_log()
     for item in masks:
         remover(masks[item])
 
 
 if __name__ == "__main__":
-    main()
+    cli.configlogger(filename='test.log', level='debug')
+    cli.log.debug('first_test')
