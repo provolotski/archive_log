@@ -2,12 +2,12 @@ import getopt
 import logging
 import sys
 
-# обрабатываемые флаги
-# -i --ifile - файл параметра
-# -l --lfile - логфайл
-# -a --add -добавить действие
-# -s --src --source -маска источника
-# -d --dest -маска достижения
+# managed flags
+# -i --ifile - parameter file
+# -l --lfile - logfile
+# -a --add -add action
+# -s --src --source -source
+# -d --dest -destination
 import cmn
 
 

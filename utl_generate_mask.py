@@ -1,7 +1,7 @@
 import datetime
 
 
-# Подменяем маску для формирования файлов директорий итп маска для месяца %YM%
+#wrapping mask for adding date to name %YM%
 
 def genDate(inStr):
     today = datetime.date.today()

@@ -1,14 +1,14 @@
-# Параметры командной строки
+# Command line parameters
 
-# данные  конфиг файла
+# Config file data
 import logging
 
 config = {}
 
-# Интерфейс для работы с командной строкой
-args = {'file': 'config.json', 'logfile': 'log/logfile.log'}
+# default parameters
+args = {'file': 'config.json', 'logfile': 'logfile.log'}
 
-# логгер для приложения
+# default logger
 log = logging.getLogger('utilityApp')
 
 log_level = {
@@ -17,10 +17,11 @@ log_level = {
     'warning': logging.WARNING
 }
 
-avail_action = ['del', 'cp', 'scp', 'mv', 'scpm', 'zip']
-# 'del'  - удалить файлы по  маске
-# 'cp' - копировать файлы по маске
-# 'scp' - копировать  на удаленный сервер
-# 'mv' переместить файлы
-# 'scpm' переместить на удаленный сервер
-# 'zip' запаковать
+avail_action = ['del', 'cp', 'scp', 'mv', 'scpm', 'zip', 'check']
+# 'del'  - delete files by mask
+# 'cp' - copy files by mask
+# 'scp' - copy files to remote host
+# 'mv' move files
+# 'scpm' move files to remote host
+# 'zip' packing files
+# 'check' print to log files

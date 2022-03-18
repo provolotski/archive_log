@@ -1,12 +1,14 @@
-# работа с конфигом
+# work with config
 import json
 import cli
 import cmn
 
 
 def read_config():
+    cmn.log.debug('read_config')
     with open(cmn.args['file'], "r") as read_file:
         cmn.config = json.load(read_file)
+    cmn.log.debug(cmn.config)
 
 
 def write_config():
