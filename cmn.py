@@ -10,6 +10,14 @@ args = {'file': 'config.json', 'logfile': 'logfile.log'}
 
 # default logger
 log = logging.getLogger('utilityApp')
+log.setLevel(logging.DEBUG)
+handler = logging.FileHandler(args['logfile'], 'a')
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+handler.setFormatter(formatter)
+log.addHandler(handler)
+
+
+
 
 log_level = {
     'debug': logging.DEBUG,
